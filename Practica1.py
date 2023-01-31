@@ -30,3 +30,28 @@ class Employees_Name(Resource):
         query = conn.execute("select * from employees where EmployeeId =%d "  %int(employee_id))
         result = {'data': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
         return jsonify(result)
+
+class Update_Employee(Resource):
+    def put(self, employee_id):
+        conn = db_connect.connect()
+        print(request.json)
+        LastName = request.json['LastName']
+        FirstName = request.json['FirstName']
+        Title = request.json['Title']
+        TitleOfCourtesy = request.json['TitleOfCourtesy']
+        BirthDate = request.json['BirthDate']
+        HireDate = request.json['HireDate']
+        Address = request.json['Address']
+        City = request.json['City']
+        Region = request.json['Region']
+        PostalCode = request.json['PostalCode']
+        Country = request.json['Country']
+        HomePhone = request.json['HomePhone']
+        Extension = request.json['Extension']
+        Photo = request.json['Photo']
+        Notes = request.json['Notes']
+        ReportsTo = request.json['ReportsTo']
+        PhotoPath = request.json['PhotoPath']
+        query = conn.execute("update employees set LastName = '%s', FirstName = '%s', Title = '%s', TitleOfCourtesy = '%s', BirthDate = '%s', HireDate = '%s', Address = '%s', City = '%s', Region = '%s', PostalCode = '%s', Country = '%s', HomePhone = '%s', Extension = '%s', Photo = '%s', Notes = '%s', ReportsTo = '%s', PhotoPath = '%s' where EmployeeId =%d"
+        %(str(LastName),str(FirstName),str(Title),str(TitleOfCourtesy),str(BirthDate),str(HireDate),str(Address),str(City),str(Region),str(PostalCode),str(Country),str(HomePhone),str(Extension),str(Photo),str(Notes),str(ReportsTo),str(PhotoPath),int(employee_id)))
+        return {'status':'success'}
